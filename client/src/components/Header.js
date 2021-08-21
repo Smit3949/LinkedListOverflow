@@ -3,9 +3,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Login, Logout } from "./auth/auth0";
 import Logo from './logo.svg.png';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 export default function Header() {

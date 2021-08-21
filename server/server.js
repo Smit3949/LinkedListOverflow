@@ -6,7 +6,6 @@ const Question = require('./model/Question');
 const app = express();
 const PORT = process.env.PORT || 3001;
 app.use(cors());
-app.use(express.urlencoded());
 app.use(express.json());
 
 const mongo_url = "mongodb+srv://smit:smit@cluster0.8uztj.mongodb.net/Questions?retryWrites=true&w=majority";
@@ -42,7 +41,43 @@ app.post('/addQuestion', (req, res) => {
     })
 });
 
+app.post('/editQuestion', (req, res) => {
+    var data = {
+        title: req.body.title,
+        userId: req.body.userId,
+        QuestionId: req.body.QuestionId,
+        body: req.body.body,
+        tags: req.body.tags,
+        answers: req.body.answers
+    }
+    console.log(data);
+    console.log(req.body.QuestionId);
+    Question.findOneAndUpdate({ QuestionId: req.body.QuestionId }, {
+        $set: {
+            title: req.body.title,
+            body: req.body.body,    
+            tags: req.body.tags
+        }
+    }, )
+    .then((result) => {
+        console.log(result)
+        res.send(result);
+    }).catch((err) => {
+        res.send(err);
+    })
+});
+
+app.get('/find-question', (req, res) => {
+    var qId = req.query.QuestionId;
+
+    Question.find({QuestionId: qId})
+        .then((data) => { console.log(data); res.send(data) })
+        .catch((err) => { res.send(err); });
+});
+
+
 app.post('/addAnswer', (req, res) => {
+    console.log(req.body);
     var qId = req.body.QuestionId;
     var data = req.body.body;
 
@@ -56,12 +91,15 @@ app.post('/addAnswer', (req, res) => {
         Question.updateOne({ QuestionId: qId }, { $addToSet: { answers: newAnswer } })
             .then((result) => {
                 res.send(result);
+                console.log(result);
             }).catch((err) => {
                 res.send(err);
             })
     })
         .catch(err => res.send(err));
 });
+
+
 
 app.listen(PORT, () => {
     console.log(`Running on 3001`);

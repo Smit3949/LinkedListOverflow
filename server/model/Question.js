@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const Answerschema = mongoose.Schema({
-    ans: Object,
+    ans: String,
     ansUserId: String 
 });
 const Questionschema = mongoose.Schema({
     userId: String,
     QuestionId: String,
     title: String,
-    body: Object,
+    body: String,
     tags: [String],
     answers: [Answerschema],
 });

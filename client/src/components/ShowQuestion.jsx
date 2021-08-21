@@ -1,52 +1,60 @@
-import React, { useState, useEffect } from 'react'
-import Quill from 'quill';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import "quill/dist/quill.snow.css";
-export default function ShowQuestion({ userId, QuestionId }) {
+export default function ShowQuestion() {
+    const { id: QuestionId } = useParams();
+    const [question, setQuestion] = useState([{ title: '', body: '', tags: [], answers: []}]);
+    const [textarea, setTextarea] = useState('');
     
-    const [quill, setQuill] = useState(null);
-
+    console.log(QuestionId)
     useEffect(() => {
-        var q = new Quill('#enter-answer', {
-            theme: 'snow'
-        });
-        setQuill(q);
-        return () => {
-        }
+
+        var backend_url = "http://localhost:3001/find-question?QuestionId=" + QuestionId;
+        fetch(backend_url, {
+            method: "GET"
+        })
+            .then(res => res.json())
+            .then(json => { setQuestion(json) });
+        
     }, []);
 
-    const tags = ['tag1', 'tag2', 'tag3'];
-    
-    useEffect(() => {
-        var backend_url = "";
-        const QuestionId = "";
-        var data = {
-            QuestionId: QuestionId  
-        };
-    });
-
     const addAnswer = () => {
-        var backend_url = "";
-        var quilldata = quill.getContents();
-        const QuestionId = "";
+        var backend_url = "http://localhost:3001/addAnswer";
+        var quilldata = textarea;
+        const QuestionId = QuestionId;
+        const userId = "";
         var data = {
+            userId: userId,
             QuestionId: QuestionId,
             body: quilldata
         };
+        console.log(data);
+        fetch(backend_url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(json));
+
     };
 
+    console.log(question)
     return (
         <div >
             <div className= " sq-title text-4xl m-6 text-blue-600 box-title">
-                    Hello
+                {question[0].title}
             </div>
             <div className="Box mt-4 p-4 rounded w-100px shadow-md border border-black border-opacity-10">
                 
                 <div className="box-desc">
-                    My name is Smit.
+                    {question[0].body}
                 </div>
                 <div className="box-tagcont">
                     {
-                        tags.map((tag) => (
+                        question[0].tags && question[0].tags.map((tag) => (
                             <div className="box-tag p-1 bg-gray-300 rounded-sm border border-black border-opacity-10 mx-1"> { tag }</div>
                         ))
                     }
@@ -54,22 +62,29 @@ export default function ShowQuestion({ userId, QuestionId }) {
             </div>
 
             <div className= " sq-title text-2xl m-6 text-gray-400 box-title">
-                    Answers
+                { question[0].answers.length } Answers
             </div>
-            <div className="Box mt-4 p-4 rounded w-100px shadow-md border border-black border-opacity-10">
-                <div className="box-desc">
-                    My name is Smit.
-                </div>
-            </div>
+            
+            {
+                question[0].answers.map((answer, index) => (
+                    <div className="Box mt-4 p-4 rounded w-100px shadow-md border border-black border-opacity-10">
+                        <div className="box-desc">
+                            { answer.ans }
+                        </div>
+                        <div className="float-right pb-16 text-gray-500">
+                            { answer.ansUserId }
+                        </div>
+                    </div>
+                ))
+            }
+                
 
-            <div className= " sq-title text-2xl m-6 text-gray-400 box-title">
+            <div className= " sq-title text-2xl m-6 text-green-400 box-title">
                     Your Answer
             </div>
             <div className="Box w-100px">
-                <div id="enter-answer">
-                </div>
+                <textarea rows="10" onChange={(e) => { setTextarea(e.target.value) }} value={textarea} className="Box mb-5 w-100px p-1 rounded shadow-md mt-2 border border-black"> </textarea>
             </div>
-
             <div className="Box ask-submit text-black p-2 w-100px bg-blue-100 rounded-sm border border-black border-opacity-10 mx-1">
                 <button onClick={ addAnswer }>Submit Your Answer</button>
             </div>

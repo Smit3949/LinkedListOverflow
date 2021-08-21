@@ -1,12 +1,32 @@
-import React, { useState} from 'react';
-import "quill/dist/quill.snow.css";
-export default function AskQuestion() {
+import React, { useState, useEffect} from 'react'
+import { useParams } from 'react-router';
+export default function Edit({ }) {
+    const { id: QuestionId } = useParams();
     const [title, setTitle] = useState('');
     const [tagstring, setTagstring] = useState('');
     const [textarea, setTextarea] = useState('');
+    const [tags, setTags] = useState([]);
+    const [answers, setAnswers] = useState([]);
+    useEffect(() => {
+        var backend_url = "http://localhost:3001/find-question?QuestionId=" + QuestionId;
+        fetch(backend_url, {
+            method: "GET"
+        })
+            .then(res => res.json())
+            .then(json => {
+                setTitle(json[0].title); setTextarea(json[0].body); setTags(json[0].tags);
+                setAnswers(json[0].answers);
+                console.log(tags);
+                tags.map((tag) => {
+                    setTagstring((prev) => { prev += tag + ',' });
+                });
+            });
+    }, []);
+
+    
 
     const askQuestion = () => {
-        var backend_url = "http://localhost:3001/addQuestion";
+        var backend_url = "http://localhost:3001/editQuestion";
         var quilldata = textarea;
         var tags = [];
 
@@ -23,15 +43,15 @@ export default function AskQuestion() {
         }
         tags.push(tag);
 
-        console.log(tags);
         const userId = "";
         var data = {
             userId: userId,
             title: title,
             body: quilldata,
-            tags: tags
+            tags: tags,
+            QuestionId: QuestionId,
+            answers: answers
         };
-        console.log(data);
 
         fetch(backend_url, {
             method: "POST",
@@ -46,7 +66,6 @@ export default function AskQuestion() {
 
     };
 
-
     return (
         <div>
             <div className="ask-title mt-4 text-3xl">
@@ -59,7 +78,7 @@ export default function AskQuestion() {
                 <div className="ask-box-title text-base font-light">
                     Be specific and imagine you’re asking a question to another person
                 </div>
-                <input onChange={(e) => {  setTitle(e.target.value)}} className="ask-que-in-title mb-5 p-1 rounded shadow-md mt-2 border border-black" />
+                <input value={ title } onChange={(e) => {  setTitle(e.target.value)}} className="ask-que-in-title mb-5 p-1 rounded shadow-md mt-2 border border-black" />
                 <div className="ask-box-title text-xl font-medium">
                     Body                   
                 </div>
@@ -73,7 +92,7 @@ export default function AskQuestion() {
                 <div className="ask-box-title text-base font-light">
                     Add up to 5 tags to describe what your question is about
                 </div>
-                <input onChange={(e) => { setTagstring(e.target.value) }} placeholder="enter tags by separated Comma" className="ask-que-in-title mb-5 p-1 rounded shadow-md mt-2 border border-black" />
+                <input value={ tagstring} onChange={(e) => { setTagstring(e.target.value) }} placeholder="enter tags by separated Comma" className="ask-que-in-title mb-5 p-1 rounded shadow-md mt-2 border border-black" />
                 <div className=" ask-submit text-black p-2 bg-blue-100 rounded-sm border border-black border-opacity-10 mx-1">
                     <button onClick={ askQuestion } >Submit</button>
                 </div>
