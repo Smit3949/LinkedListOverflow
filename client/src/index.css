@@ -52,6 +52,8 @@ code {
   align-content: center;
   margin: 0 auto;
   margin-top: 10px;
+}
+.Box-cur {
   cursor: pointer;
 }
 

@@ -2,9 +2,10 @@ import React from 'react'
 
 export default function Box() {
     const tags = ['tag1', 'tag2', 'tag3'];
+
     return (
         <div >
-            <div className="Box mt-4 p-4 rounded  h-50px w-50px shadow-md border border-black border-opacity-10">
+            <div className="Box Box-cur mt-4 p-4 rounded  h-50px w-50px shadow-md border border-black border-opacity-10">
                 <div className= " text-lg text-blue-600 box-title">
                     Hello
                 </div>

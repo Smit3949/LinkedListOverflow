@@ -15,6 +15,24 @@ export default function ShowQuestion({ userId, QuestionId }) {
     }, []);
 
     const tags = ['tag1', 'tag2', 'tag3'];
+    
+    useEffect(() => {
+        var backend_url = "";
+        const QuestionId = "";
+        var data = {
+            QuestionId: QuestionId  
+        };
+    });
+
+    const addAnswer = () => {
+        var backend_url = "";
+        var quilldata = quill.getContents();
+        const QuestionId = "";
+        var data = {
+            QuestionId: QuestionId,
+            body: quilldata
+        };
+    };
 
     return (
         <div >
@@ -51,8 +69,9 @@ export default function ShowQuestion({ userId, QuestionId }) {
                 <div id="enter-answer">
                 </div>
             </div>
+
             <div className="Box ask-submit text-black p-2 w-100px bg-blue-100 rounded-sm border border-black border-opacity-10 mx-1">
-                    <button>Submit Your Answer</button>
+                <button onClick={ addAnswer }>Submit Your Answer</button>
             </div>
         </div>
     )
