@@ -15,10 +15,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+.sq-title {
+  text-align: center;
+}
+.ask-question {
+  cursor: pointer;
+  align-items: center;
+  align-content: center;
+}
+.ask-que-in-body {
+  border: 0ch;
+  padding: 0%;
+  margin: 0%;
+}
+.ask-title {
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+.ask-que-in-title {
+  width: 100%;
+}
+.ql-editor {
+  min-height: 100px;
+}
+.ask-submit {
+  text-align: center;
+}
+.ask-que-in-title:focus {
+  outline: none;
+}
 .Box {
   align-items: center;
   align-content: center;
   margin: 0 auto;
   margin-top: 10px;
+  cursor: pointer;
+}
+
+.box-tag {
+  display: inline-block;
+  margin: 3px;
+  margin-left: 0;
 }
