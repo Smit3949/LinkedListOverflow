@@ -53,6 +53,15 @@ code {
 .float-right {
   float: right;
 }
+.Login-button {
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+  padding: 15px;
+}
+.sq-title {
+  text-align: center;
+}
 .Box {
   align-items: center;
   align-content: center;

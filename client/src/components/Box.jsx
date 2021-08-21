@@ -17,10 +17,10 @@ export default function Box({ title, body, tags, QuestionId, edit}) {
                 <div className="box-desc">
                     { body }
                 </div>
-                <div className="box-tagcont">
+                <div className="box-tagcont mb-7">
                     {
                         tags && tags.map((tag) => (
-                            <div className="box-tag p-1 bg-gray-300 rounded-sm border border-black border-opacity-10 mx-1"> { tag }</div>
+                            <div className="box-tag p-1  bg-gray-300 rounded-sm border border-black border-opacity-10 mx-1"> { tag }</div>
                         ))
                     }
                     </div>

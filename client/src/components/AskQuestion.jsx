@@ -1,10 +1,14 @@
 import React, { useState} from 'react';
 import "quill/dist/quill.snow.css";
+import Header from './Header';
+import { useAuth0 } from '@auth0/auth0-react'
 export default function AskQuestion() {
     const [title, setTitle] = useState('');
     const [tagstring, setTagstring] = useState('');
     const [textarea, setTextarea] = useState('');
-
+    const { isAuthenticated, user } = useAuth0();
+    const [userId, setuserId] = useState(user.email);
+    
     const askQuestion = () => {
         var backend_url = "http://localhost:3001/addQuestion";
         var quilldata = textarea;
@@ -24,7 +28,6 @@ export default function AskQuestion() {
         tags.push(tag);
 
         console.log(tags);
-        const userId = "";
         var data = {
             userId: userId,
             title: title,
@@ -49,6 +52,7 @@ export default function AskQuestion() {
 
     return (
         <div>
+            <Header />
             <div className="ask-title mt-4 text-3xl">
                 Ask a public question
             </div>

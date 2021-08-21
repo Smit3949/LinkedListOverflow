@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useAuth0 } from '@auth0/auth0-react';
 
 export function Login() {
@@ -11,7 +11,13 @@ export function Login() {
 }
 export function LoginWithoutButton() {
     const { loginWithRedirect } = useAuth0();
-    return (loginWithRedirect());
+    return (
+        <div className=" h-screen w-screen flex items-center justify-center z-50 ">
+            <div className="Login-button text-white p-1 bg-blue-300 h-16 w-56 rounded-sm border border-black border-opacity-10 mx-1">
+            <button id="login-button" onClick={() => { loginWithRedirect() }}>Login/Signup</button>
+            </div>
+            </div>
+    )
 }
 
 export function Logout() {

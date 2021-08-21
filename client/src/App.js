@@ -1,8 +1,7 @@
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { LoginWithoutButton, Login, Logout } from "./components/auth/auth0";
@@ -15,23 +14,28 @@ function App() {
   const { isAuthenticated, user } = useAuth0();
   console.log(isAuthenticated);
   return (
-     <Router>
-        <Switch>
-        <Route path="/" exact>
-          {
-            // isAuthenticated ? <Header /> : <LoginWithoutButton />
-          }
-          <Header />
-          <Home />
-        </Route>
-        <Route path="/ask-question" exact>
-          <Header />
-          <AskQuestion />
-        </Route>
-        <Route path="/edit/:id" component={ Edit } />
-        <Route path="/:id" component={ ShowQuestion } />
-        </Switch>
-    </Router>
+    <>
+    {
+      isAuthenticated ?
+      <>
+        <Router>
+          <Switch>
+                <Route path="/" exact>
+                  <Home/> 
+                </Route>
+                <Route path="/ask-question" exact>
+                  <AskQuestion /> 
+                </Route>
+                <Route path="/edit/:id" component={ Edit } />
+                  <Route path="/:id" component={ShowQuestion} />
+            </Switch>
+        </Router>
+    
+      </>
+          :
+        <LoginWithoutButton />
+      }
+    </>
   );
 }
 

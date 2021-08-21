@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import "quill/dist/quill.snow.css";
+import { useAuth0 } from '@auth0/auth0-react'
+import Header from './Header';
 export default function ShowQuestion() {
     const { id: QuestionId } = useParams();
     const [question, setQuestion] = useState([{ title: '', body: '', tags: [], answers: []}]);
     const [textarea, setTextarea] = useState('');
-    
+    const { isAuthenticated, user } = useAuth0();
+    const [userId, setuserId] = useState(user.email);
     console.log(QuestionId)
     useEffect(() => {
 
@@ -21,11 +24,10 @@ export default function ShowQuestion() {
     const addAnswer = () => {
         var backend_url = "http://localhost:3001/addAnswer";
         var quilldata = textarea;
-        const QuestionId = QuestionId;
-        const userId = "";
+        var QId = QuestionId;
         var data = {
             userId: userId,
-            QuestionId: QuestionId,
+            QuestionId: QId,
             body: quilldata
         };
         console.log(data);
@@ -44,6 +46,7 @@ export default function ShowQuestion() {
     console.log(question)
     return (
         <div >
+            <Header/>
             <div className= " sq-title text-4xl m-6 text-blue-600 box-title">
                 {question[0].title}
             </div>
@@ -67,7 +70,7 @@ export default function ShowQuestion() {
             
             {
                 question[0].answers.map((answer, index) => (
-                    <div className="Box mt-4 p-4 rounded w-100px shadow-md border border-black border-opacity-10">
+                    <div className="Box mt-4 p-4 h-20 rounded w-100px shadow-md border border-black border-opacity-10">
                         <div className="box-desc">
                             { answer.ans }
                         </div>
@@ -79,7 +82,7 @@ export default function ShowQuestion() {
             }
                 
 
-            <div className= " sq-title text-2xl m-6 text-green-400 box-title">
+            <div className= "sq-title text-2xl m-6 text-green-400 box-title">
                     Your Answer
             </div>
             <div className="Box w-100px">

@@ -1,5 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import { useParams } from 'react-router';
+import Header from './Header';
+import { useAuth0 } from '@auth0/auth0-react'
 export default function Edit({ }) {
     const { id: QuestionId } = useParams();
     const [title, setTitle] = useState('');
@@ -7,6 +9,8 @@ export default function Edit({ }) {
     const [textarea, setTextarea] = useState('');
     const [tags, setTags] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const { isAuthenticated, user } = useAuth0();
+    const [userId, setuserId] = useState(user.email);
     useEffect(() => {
         var backend_url = "http://localhost:3001/find-question?QuestionId=" + QuestionId;
         fetch(backend_url, {
@@ -43,7 +47,6 @@ export default function Edit({ }) {
         }
         tags.push(tag);
 
-        const userId = "";
         var data = {
             userId: userId,
             title: title,
@@ -68,8 +71,9 @@ export default function Edit({ }) {
 
     return (
         <div>
+            <Header />
             <div className="ask-title mt-4 text-3xl">
-                Ask a public question
+                Edit question
             </div>
             <div className="Box mt-4 p-4 rounded w-50px shadow-md border border-black border-opacity-20">
                 <div className="ask-box-title text-xl font-medium">

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Box from './components/Box';
+import Header from './components/Header';
+import { useAuth0 } from '@auth0/auth0-react'
 export default function Home() {
     const [questions, setQuestions] = useState([]);
-    const [userId, setuserId] = useState('');
+    const { isAuthenticated, user } = useAuth0();
+    const [userId, setuserId] = useState(user.email);
     useEffect(() => {
         var backend_url = "http://localhost:3001";
 
@@ -17,10 +20,10 @@ export default function Home() {
             .catch(err => console.log(err));
     }, []);
 
-    console.log(questions);
 
     return (
         <>
+            <Header />
             {
                 
                 questions.map((question) => (

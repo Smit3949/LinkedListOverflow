@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-const mongo_url = "mongodb+srv://smit:smit@cluster0.8uztj.mongodb.net/Questions?retryWrites=true&w=majority";
+const mongo_url = "mongodb+srv://smit:smit@cluster0.haxvy.mongodb.net/Questions?retryWrites=true&w=majority";
 mongoose.connect(mongo_url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
