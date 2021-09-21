@@ -12,7 +12,7 @@ contract QA {
         string[] tags;
         string title;
         string body;
-        mapping(string => Answer) answers;
+        Answer[] answers;
     }
 
     struct Answer {
@@ -27,6 +27,16 @@ contract QA {
         string title,
         string body
     );
+
+    event tipAns(
+        address payable userId,
+        string[] tags,
+        string title,
+        string body,
+        Answer[] answers
+    );
+
+    event addsAns(address payable ansUserId, string ans, uint256 tipAmount);
 
     // create question
     function addQuestion(
@@ -44,9 +54,30 @@ contract QA {
         }
         emit QuestionAdded(msg.sender, que.tags, que.title, que.body);
     }
+
     // create answer
+    function addAnswer(string memory _QuestionId, string memory _ans) public {
+        Question storage que = questions[_QuestionId];
+        Answer memory ans = Answer(msg.sender, _ans, 0);
+        que.answers.push(ans);
+        emit addsAns(msg.sender, _ans, 0);
+    }
 
     // fetch all question
 
     // tip answer
+    function tipAnswer(string memory QuestionId, uint256 id) public payable {
+        Answer memory _answer = questions[QuestionId].answers[id];
+        address payable _author = _answer.ansUserId;
+        address(_author).transfer(msg.value);
+        _answer.tipAmount += msg.value;
+        questions[QuestionId].answers[id] = _answer;
+        emit tipAns(
+            msg.sender,
+            questions[QuestionId].tags,
+            questions[QuestionId].title,
+            questions[QuestionId].body,
+            questions[QuestionId].answers
+        );
+    }
 }

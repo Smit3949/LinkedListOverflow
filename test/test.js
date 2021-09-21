@@ -12,18 +12,18 @@ contract('QA', ([deployer, author, tipper]) => {
   })
 
   describe('deployment', async () => {
-    // it('deploys successfully', async () => {
-    //   const address = await qa.address
-    //   assert.notEqual(address, 0x0)
-    //   assert.notEqual(address, '')
-    //   assert.notEqual(address, null)
-    //   assert.notEqual(address, undefined)
-    // })
+    it('deploys successfully', async () => {
+      const address = await qa.address
+      assert.notEqual(address, 0x0)
+      assert.notEqual(address, '')
+      assert.notEqual(address, null)
+      assert.notEqual(address, undefined)
+    })
 
-    // it('has a name', async () => {
-    //   const name = await decentragram.name()
-    //   assert.equal(name, 'Decentragram')
-    // })
+    it('has a name', async () => {
+      const name = await decentragram.name()
+      assert.equal(name, 'Decentragram')
+    })
   })
 
 
@@ -39,6 +39,58 @@ contract('QA', ([deployer, author, tipper]) => {
      
     });
   });
+
+  describe('adding answer', async () => {
+    let res;
+
+    before(async () => {
+      res = await qa.addAnswer('1x1', 'Hello World', {from: author});
+    })
+
+    it('create question', async () => {
+      console.log(res.logs[0].args);
+    });
+  });
+
+  describe('asd', () => {
+    console.log('fefe');
+  })
+  describe('tip users', async () => {
+      
+    let oldAuthorBalance
+    oldAuthorBalance = await web3.eth.getBalance(author)
+    oldAuthorBalance = new web3.utils.BN(oldAuthorBalance)
+
+    result = await qa.tipAnswer('0x172444D7AB3cF2852Aa4e115495d3Bb79D608fa1', 0 , { from: tipper, value: web3.utils.toWei('1', 'Ether') })
+
+    // SUCCESS
+    const event = result.logs[0].args
+    console.log(event);
+    assert.equal(event.id.toNumber(), imageCount.toNumber(), 'id is correct')
+    assert.equal(event.hash, hash, 'Hash is correct')
+    assert.equal(event.description, 'Image description', 'description is correct')
+    assert.equal(event.tipAmount, '1000000000000000000', 'tip amount is correct')
+    assert.equal(event.author, author, 'author is correct')
+
+    // Check that author received funds
+    let newAuthorBalance
+    newAuthorBalance = await web3.eth.getBalance(author)
+    newAuthorBalance = new web3.utils.BN(newAuthorBalance)
+
+    let tipImageOwner
+    tipImageOwner = web3.utils.toWei('1', 'Ether')
+    tipImageOwner = new web3.utils.BN(tipImageOwner)
+
+    const expectedBalance = oldAuthorBalance.add(tipImageOwner)
+
+    assert.equal(newAuthorBalance.toString(), expectedBalance.toString())
+
+    // FAILURE: Tries to tip a image that does not exist
+    await qa.tipImageOwner(99, { from: tipper, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
+    
+  });
+
+
 
   // describe('images', async () => {
   //   let result, imageCount
