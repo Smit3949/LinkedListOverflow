@@ -1,0 +1,118 @@
+{
+  "contractName": "QA",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/smit/stackOverflow-blockChain/src/contracts/QA.sol\":\"QA\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/smit/stackOverflow-blockChain/src/contracts/QA.sol\":{\"keccak256\":\"0x96985c9543938b7949da941bfe8991b68046e757330a4ab947fbf66e136499bc\",\"urls\":[\"bzz-raw://db5851c049cb2051cfc7557f04ff968da13a0c08186db9fe40719eed6fa36b00\",\"dweb:/ipfs/QmYumDvXwaCbsQkjzkcp5thytgjRHvoqSCczWxoFAeubzb\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a72315820f7e22246ae49c60ddcf052db27a097d20124618e277e897e6c09a411b511a2cf64736f6c63430005100032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a72315820f7e22246ae49c60ddcf052db27a097d20124618e277e897e6c09a411b511a2cf64736f6c63430005100032",
+  "sourceMap": "34:14:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;34:14:1;;;;;;;",
+  "deployedSourceMap": "34:14:1:-;;;;;",
+  "source": "pragma solidity >=0.4.21 <0.9.0;\n\ncontract QA {}\n",
+  "sourcePath": "/home/smit/stackOverflow-blockChain/src/contracts/QA.sol",
+  "ast": {
+    "absolutePath": "/home/smit/stackOverflow-blockChain/src/contracts/QA.sol",
+    "exportedSymbols": {
+      "QA": [
+        59
+      ]
+    },
+    "id": 60,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 58,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".21",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 59,
+        "linearizedBaseContracts": [
+          59
+        ],
+        "name": "QA",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 60,
+        "src": "34:14:1"
+      }
+    ],
+    "src": "0:49:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/smit/stackOverflow-blockChain/src/contracts/QA.sol",
+    "exportedSymbols": {
+      "QA": [
+        59
+      ]
+    },
+    "id": 60,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 58,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".21",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 59,
+        "linearizedBaseContracts": [
+          59
+        ],
+        "name": "QA",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 60,
+        "src": "34:14:1"
+      }
+    ],
+    "src": "0:49:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xaFD1774e840649a83622b2e6c5963e32bFE6100b",
+      "transactionHash": "0x9b3cdbac758293214799c9e091e706ef076d3a231e0346a5d9105322e44e0ed3"
+    }
+  },
+  "schemaVersion": "3.2.5",
+  "updatedAt": "2021-09-21T04:30:29.946Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
