@@ -6,10 +6,14 @@ import Header from './Header';
 import AskQuestion from './AskQuestion';
 import Home from './Home';
 import ShowQuestion from './ShowQuestion';
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 //Declare IPFS
-const ipfsClient = require('ipfs-http-client')
-const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }) // leaving out the arguments will default to these values
+// const ipfsClient = require('ipfs-http-client')
+// const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }) // leaving out the arguments will default to these values
 
 export default function App() {
   const [account, setAccount] = useState('');
@@ -45,13 +49,27 @@ export default function App() {
     
   }, [])
   
+  var sty = {
+    'background-color': 'white'
+  }
   return (
       
-    <div className="text-black flex py-2 px-2 justify-between items-center border-2">
+    <div style={ sty }>
       <Header account={account} />
-      {/* <AskQuestion /> */}
-      {/* <Home /> */}
-      <ShowQuestion />
+      
+       <Router>
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/ask-question" exact>
+              <AskQuestion /> 
+            </Route>
+            {/* <Route path="/edit/:id" component={ Edit } /> */}
+            <Route path="/:id" component={ShowQuestion} />
+            </Switch>
+        </Router>
     </div>
+    
   )
 }

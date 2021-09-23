@@ -4,13 +4,12 @@ import Web3 from 'web3';
 import QA from '../abis/QA.json';
 import { useParams } from 'react-router';
 
-import Header from './Header';
 export default function ShowQuestion({ }) {
     // const { id: QuestionId } = useParams();
-    const QuestionId = '13acc1a5-2b46-45d9-8a1b-cc7cb08aceb9';
+    const QuestionId = '442a0c57-30ce-467a-a405-7e6ec67cd475';
     const [question, setQuestion] = useState({ title: '', body: '', tags: '', answers: []});
     const [textarea, setTextarea] = useState('');
-
+    const [answers, setAnswers] = useState([]);
     console.log(QuestionId)
 
     const [Qa, setQa] = useState(null);
@@ -51,6 +50,24 @@ export default function ShowQuestion({ }) {
                 }
             
             );
+            for (var ans = 0; ans < data.cntAns; ans++) {
+                const vals = await qa.methods.showAnswer(QuestionId, ans).call().then((res, err) => {
+                    setAnswers((prev) => (
+                    prev = [
+                            ...prev,
+                            {
+                                tipAmount: res.tipAmount,
+                                ans: res.ans,
+                                userId: res.ansUserId,
+                                id: ans,
+                            }
+                        ]
+                    ))
+                })
+                // console.log(vals);
+                
+            }
+            setAnswers((prev) => (prev = prev.sort((a, b) => b.tipAmount - a.tipAmount)));
             console.log(question);
         }
         else {
@@ -82,15 +99,24 @@ export default function ShowQuestion({ }) {
         tags.push(tag);
 
         for (var i = 0; i < tags.length; i++) {
-            setQtags([
+            setQtags((prev) => (prev = [
+                    ...prev,
                     tags[i]
-                ]
+                ])
             )
         } 
     }, []);
     
+    const tipuser = (id) => {
+        Qa.methods.tipAnswer(QuestionId, id).send({ from: account, value: window.web3.utils.toWei('0.1', 'Ether') }).on('tipAns', (ok) => {
+            console.log(ok);
+        });
+    }
+    var sty = {
+        "cursor": "pointer"
+    }
     return (
-        <div >
+        <div>
             <div className= " sq-title text-4xl m-6 text-blue-600 box-title">
                 {question.title}
             </div>
@@ -107,21 +133,23 @@ export default function ShowQuestion({ }) {
                     }
                 </div>
             </div>
-            {/* {
+            {
                 <div className=" sq-title text-2xl m-6 text-gray-400 box-title">
-                    {question.answers.length} Answers
+                    {answers.length} Answers
                 </div>
-            } */}
+            }
             
             {
-                question.answers && question.answers.map((answer, index) => (
+                answers && answers.map((answer, index) => (
                     <div className="Box mt-4 p-4 h-20 rounded w-100px shadow-md border border-black border-opacity-10">
                         <div className="box-desc">
                             { answer.ans }
                         </div>
                         <div className="float-right pb-16 text-gray-500">
-                            { answer.ansUserId }
+                            { answer.userId }
                         </div>
+                        <div> tipAmount = { answer.tipAmount/1000000000000000000 } eth    </div>
+                        <div style={sty} id={answer.id} onClick={(e) => { tipuser(e.target.id) } }> tip 0.1 </div>
                     </div>
                 ))
             }

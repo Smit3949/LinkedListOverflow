@@ -26,7 +26,8 @@ contract QA {
         address payable userId,
         string tags,
         string title,
-        string body
+        string body,
+        Answer[] answers
     );
 
     event tipAns(
@@ -38,6 +39,8 @@ contract QA {
     );
 
     event addsAns(address payable ansUserId, string ans, uint256 tipAmount);
+
+    event showAns(address payable ansUserId, string ans, uint256 tipAmount);
 
     // create question
     function addQuestion(
@@ -54,7 +57,13 @@ contract QA {
         que.body = _body;
         que.tags = _tags;
         que.cntAns = 0;
-        emit QuestionAdded(msg.sender, que.tags, que.title, que.body);
+        emit QuestionAdded(
+            msg.sender,
+            que.tags,
+            que.title,
+            que.body,
+            que.answers
+        );
     }
 
     // create answer
@@ -64,6 +73,19 @@ contract QA {
         Answer memory ans = Answer(msg.sender, _ans, 0);
         que.answers.push(ans);
         emit addsAns(msg.sender, _ans, 0);
+    }
+
+    function showAnswer(string memory QuestionId, uint256 id)
+        public
+        returns (
+            address ansUserId,
+            string memory ans,
+            uint256 tipAmount
+        )
+    {
+        Answer memory _answer = questions[QuestionId].answers[id];
+        emit showAns(_answer.ansUserId, _answer.ans, _answer.tipAmount);
+        return (_answer.ansUserId, _answer.ans, _answer.tipAmount);
     }
 
     // tip answer

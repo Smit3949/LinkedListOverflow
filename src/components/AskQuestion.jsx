@@ -21,7 +21,7 @@ export default function AskQuestion() {
         else {
             window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
         }
-    }, [])
+    }, []);
 
     useEffect(async () => {
         const web3 = window.web3;
@@ -35,10 +35,10 @@ export default function AskQuestion() {
             setQa(qa);
         }
         else {
-         window.alert('QA contract not deployed to detected network');
+            window.alert('QA contract not deployed to detected network');
         }
         
-    }, [])
+    }, []);
 
 
     const askQuestion = () => {
@@ -50,7 +50,7 @@ export default function AskQuestion() {
 
 
     return (
-        <div>
+        <div className="ask-question">
             <div className="ask-title mt-4 text-3xl">
                 Ask a public question
             </div>

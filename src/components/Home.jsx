@@ -32,19 +32,27 @@ export default function Home() {
             var cnt = await qa.methods.countids().call();
             setCount(cnt);
             setQa(qa);
+            console.log(cnt);
 
             for (var i = 0; i < cnt; i++) {
                 const id = await qa.methods.Ids(i).call();
                 const data = await qa.methods.questions(id).call();
                 console.log(data.title);
-                setQuestions([
+                data.body += 'dsadasdasdsaddaaadasdasdadsadsadsfsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdasdasasdsadaasdsadsadasdasdasdasdasdasddasdsdasdasdasdsadadsadsadda';
+                // const body = "";
+                // for (var b = 0; b < Math.min(60, data.body.length); b++) {
+                //     body += data.body[b];
+                // }
+
+                setQuestions((prev) => (prev = [
+                        ...prev,
                         {
                             QuestionId: id,
                             title: data.title,
                             body: data.body,
                             tags: data.tags
                         }
-                    ]
+                    ])
                 )
             }
             console.log(questions)
@@ -63,12 +71,22 @@ export default function Home() {
 
     return (
         <>
-            {
-                
-                questions && questions.map((question) => (
-                    <Box title={question.title} body={question.body} tagstring={question.tags} QuestionId={question.QuestionId}/>
-                ))
-            }
+            <div className=" flex ">
+                <div className="Box Box-cur p-4 rounded  h-50px w-24  shadow-md border border-black border-opacity-10">
+                    Hello
+                </div>
+                {
+                    
+                    questions && questions.map((question) => (
+                        <Box account={ account } title={question.title} body={question.body} tagstring={question.tags} QuestionId={question.QuestionId}/>
+                    ))
+                }
+
+                <div className="Box Box-cur p-4 rounded  h-50px w-24 shadow-md border border-black border-opacity-10">
+                    world
+                </div>
+            </div>
+            
         </>
     )
 }

@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css?family=Bangers|Cinzel:400,700,900|Lato:100,300,400,700,900|Lobster|Lora:400,700|Mansalva|Muli:200,300,400,600,700,800,900|Open+Sans:300,400,600,700,800|Oswald:200,300,400,500,600,700|Roboto:100,300,400,500,700,900&display=swap");
+/* Used Google Fonts */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.logo-holder {
+  text-align: center;
+  justify-content: center;
+}
+/* Logo-1 */
+.logo-1 h3 {
+  color: black;
+  text-decoration: none !important;
+  /* font-family: "Oswald", sans-serif; */
+  font-weight: 300;
+  font-size: 25px;
+  line-height: 1.3;
+  margin: auto;
+}
+
+body {
+  margin: 0;
+  text-decoration: none !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.acc-name {
+  display: inline-block;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.sq-title {
+  text-align: center;
+}
+
+.ask-question {
+  color: gray;
+  align-items: flex-end;
+  text-align: end;
+  float: right;
+}
+
+.ask-que-in-body {
+  border: 0ch;
+  padding: 0%;
+  margin: 0%;
+}
+.ask-title {
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+.ql-editor {
+  min-height: 100px;
+}
+
+.ask-submit {
+  text-align: right;
+}
+
+.ask-que-in-title:focus {
+  outline: none;
+}
+.ask-que-in-title {
+  width: 100%;
+}
+
+.float-right {
+  float: right;
+}
+.Login-button {
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+  padding: 15px;
+}
+.sq-title {
+  text-align: center;
+}
+.Box {
+  align-items: center;
+  align-content: center;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.box-tag {
+  display: inline-block;
+  margin: 3px;
+  margin-left: 0;
+}

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
+import {
+  Link
+} from "react-router-dom";
 
-export default function Box({ title, body, tagstring, QuestionId }) {
+import Identicon from 'identicon.js';
+
+export default function Box({ title, body, tagstring, QuestionId, account }) {
     const [qtags, setQtags] = useState([]);
     const reach = "/" + QuestionId;
     console.log(title, body, tagstring, QuestionId)
-
-
+    var acc = account;
+    
     
     useEffect(() => {
         var tags = [];
@@ -32,12 +37,14 @@ export default function Box({ title, body, tagstring, QuestionId }) {
 
         console.log(qtags)
     }, [])
+
+    
     return (
        
-        <div >
+        <div className="h-50px w-50px">
              
             <div className="Box Box-cur mt-4 p-4 rounded  h-50px w-50px shadow-md border border-black border-opacity-10">
-            {/* <Link to={ reach } > */}
+            <Link to={ reach } >
                 <div className= " text-lg text-blue-600 box-title">
                     {title}
                 </div>
@@ -51,7 +58,7 @@ export default function Box({ title, body, tagstring, QuestionId }) {
                         ))
                     }
                     </div>
-            {/* </Link> */}
+            </Link>
                 {
                     // edit
                     // <Link to={"/edit/" + QuestionId}>
@@ -60,6 +67,23 @@ export default function Box({ title, body, tagstring, QuestionId }) {
                     //     </div>
                     // </Link>
                 }
+                <div className="ask-submit  text-gray-700 p-2 mx-1">
+                    <div className="flex ask-question">
+          
+                        <div className="y-10 mx-1">
+                        { acc }
+                        </div>
+                    
+                    <div className="mx-1 relative">
+                        <img
+                            className='ml-2'
+                            width='30'
+                            height='30'
+                            src={`data:image/png;base64,${new Identicon(acc, 30).toString()}`}
+                        />
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
     )
